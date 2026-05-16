@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<!-- VERY IMPORTANT VIEWPORT -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Why Does the Brain Procrastinate?</title>
+<link rel="icon" href="mindset.png">
+<!-- ================= GOOGLE FONTS ================= -->
 
-<!-- FAVICON -->
-<link rel="icon" href="images/favicon.png">
-
-<!-- GOOGLE FONTS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -21,9 +15,33 @@
 
 <style>
 
-/* ======================================================
-   RESET
-====================================================== */
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root{
+
+    --bg:#090b0f;
+    --bg2:#10141c;
+
+    --glass:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.08);
+
+    --text:#eef3ff;
+    --muted:#97a3b8;
+
+    --cyan:#8de2ff;
+    --blue:#67b7ff;
+
+    --shadow:0 10px 40px rgba(0,0,0,0.45);
+
+    --radius:24px;
+
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 *{
     margin:0;
@@ -37,22 +55,20 @@ html{
 
 body{
 
-    background:#05070d;
-
-    color:#edf3ff;
+    background:var(--bg);
+    color:var(--text);
 
     font-family:"Inter",sans-serif;
 
     overflow-x:hidden;
+    position:relative;
 
     line-height:1.8;
-
-    position:relative;
 }
 
-/* ======================================================
-   BACKGROUND GLOW
-====================================================== */
+/* =========================================================
+   AMBIENT BACKGROUND
+========================================================= */
 
 body::before,
 body::after{
@@ -70,38 +86,67 @@ body::after{
 
     z-index:-2;
 
-    opacity:0.12;
+    opacity:0.16;
+
 }
 
 body::before{
 
     background:#1d6eff;
 
-    top:-120px;
-    left:-120px;
+    top:-100px;
+    left:-100px;
+
+    animation:float1 12s infinite alternate ease-in-out;
 }
 
 body::after{
 
-    background:#33d6ff;
+    background:#3ecbff;
 
-    bottom:-120px;
-    right:-120px;
+    bottom:-100px;
+    right:-100px;
+
+    animation:float2 14s infinite alternate ease-in-out;
 }
 
-/* ======================================================
+@keyframes float1{
+
+    from{
+        transform:translateY(0px);
+    }
+
+    to{
+        transform:translateY(60px);
+    }
+
+}
+
+@keyframes float2{
+
+    from{
+        transform:translateX(0px);
+    }
+
+    to{
+        transform:translateX(-50px);
+    }
+
+}
+
+/* =========================================================
    PARTICLES
-====================================================== */
+========================================================= */
 
 .particles{
 
     position:fixed;
-
     inset:0;
 
     z-index:-1;
 
     overflow:hidden;
+
 }
 
 .particle{
@@ -111,14 +156,14 @@ body::after{
     width:2px;
     height:2px;
 
-    background:rgba(255,255,255,0.4);
+    background:rgba(255,255,255,0.5);
 
     border-radius:50%;
 
-    animation:float linear infinite;
+    animation:particleMove linear infinite;
 }
 
-@keyframes float{
+@keyframes particleMove{
 
     from{
         transform:translateY(100vh);
@@ -136,41 +181,39 @@ body::after{
 
 }
 
-/* ======================================================
+/* =========================================================
    NAVBAR
-====================================================== */
+========================================================= */
 
 .navbar{
 
     position:fixed;
 
     top:0;
-    left:0;
-
     width:100%;
 
     z-index:1000;
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:blur(18px);
 
-    background:rgba(5,7,13,0.55);
+    background:rgba(8,10,15,0.5);
 
-    border-bottom:1px solid rgba(255,255,255,0.06);
+    border-bottom:1px solid var(--border);
+
 }
 
-.nav-inner{
+.nav-container{
 
-    width:100%;
-
-    max-width:1600px;
+    max-width:1300px;
 
     margin:auto;
 
-    padding:20px 60px;
+    padding:18px 40px;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
+
 }
 
 .logo{
@@ -178,46 +221,64 @@ body::after{
     font-family:"Space Grotesk",sans-serif;
 
     font-size:1.2rem;
-
     font-weight:700;
 
     letter-spacing:1px;
 }
 
 .logo span{
-    color:#79dcff;
+    color:var(--cyan);
 }
 
 .nav-links{
 
     display:flex;
+    gap:28px;
 
-    gap:30px;
 }
 
 .nav-links a{
 
     text-decoration:none;
 
-    color:#98a7c0;
+    color:var(--muted);
 
-    font-size:0.95rem;
+    transition:0.3s;
+
+    position:relative;
+
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:1px;
+
+    background:var(--cyan);
 
     transition:0.3s;
 }
 
-.nav-links a:hover{
-
-    color:white;
+.nav-links a:hover::after{
+    width:100%;
 }
 
-/* ======================================================
+/* =========================================================
    HERO
-====================================================== */
+========================================================= */
 
 .hero{
-
-    width:100%;
 
     min-height:100vh;
 
@@ -227,147 +288,154 @@ body::after{
 
     text-align:center;
 
-    padding:140px 30px 100px;
+    padding:120px 20px 80px;
 
     position:relative;
+
 }
 
 .hero-glow{
 
     position:absolute;
 
-    width:600px;
-    height:600px;
+    width:550px;
+    height:550px;
 
     border-radius:50%;
 
-    background:
-    radial-gradient(circle,
-    rgba(80,160,255,0.22),
+    background:radial-gradient(circle,
+    rgba(103,183,255,0.25),
     transparent 70%);
 
-    filter:blur(40px);
+    filter:blur(30px);
 
     z-index:-1;
 }
 
 .hero-content{
 
-    width:100%;
-
-    max-width:1200px;
+    max-width:950px;
 }
 
 .hero h1{
 
     font-family:"Space Grotesk",sans-serif;
 
-    font-size:clamp(3.5rem,8vw,7rem);
+    font-size:clamp(3rem,8vw,6rem);
 
-    line-height:1;
-
-    letter-spacing:-3px;
+    line-height:1.05;
 
     margin-bottom:30px;
+
+    letter-spacing:-2px;
 }
 
 .hero p{
 
-    max-width:900px;
+    max-width:850px;
 
     margin:auto;
 
-    font-size:1.2rem;
+    color:var(--muted);
 
-    color:#9ca8bc;
+    font-size:1.15rem;
 }
 
-/* ======================================================
+.scroll-indicator{
+
+    position:absolute;
+
+    bottom:40px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:var(--muted);
+
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:translate(-50%,0);
+    }
+
+    50%{
+        transform:translate(-50%,10px);
+    }
+
+}
+
+/* =========================================================
    SECTION
-====================================================== */
+========================================================= */
 
 .section{
 
-    width:100%;
-
-    max-width:1500px;
+    max-width:1100px;
 
     margin:auto;
 
-    padding:120px 60px;
+    padding:120px 30px;
+
 }
 
 .section-title{
 
     font-family:"Space Grotesk",sans-serif;
 
-    font-size:2.8rem;
+    font-size:2.5rem;
 
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 
 .section-text{
 
-    max-width:1000px;
+    max-width:850px;
 
-    color:#97a3b8;
+    color:var(--muted);
 
-    font-size:1.08rem;
+    font-size:1.05rem;
 }
 
-/* ======================================================
-   RESEARCH GRID
-====================================================== */
-
-.research-grid{
-
-    margin-top:70px;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(420px,1fr));
-
-    gap:40px;
-}
-
-/* ======================================================
-   CARD
-====================================================== */
+/* =========================================================
+   RESEARCH CARDS
+========================================================= */
 
 .research-card{
 
-    background:rgba(255,255,255,0.04);
+    margin-top:60px;
 
-    border:1px solid rgba(255,255,255,0.07);
+    background:var(--glass);
 
-    border-radius:24px;
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:var(--radius);
 
     overflow:hidden;
 
     transition:0.4s;
 
-    backdrop-filter:blur(18px);
+    box-shadow:var(--shadow);
 }
 
 .research-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-6px);
 
-    border-color:rgba(121,220,255,0.25);
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,0.45);
+    border-color:rgba(103,183,255,0.35);
 }
 
-/* ======================================================
-   IMAGE
-====================================================== */
+/* =========================================================
+   IMAGE AREA
+========================================================= */
 
 .card-image{
 
     width:100%;
-
     height:280px;
 
     overflow:hidden;
@@ -377,7 +445,9 @@ body::after{
     background:#111;
 }
 
-/* PUT IMAGE LINK HERE */
+/* =========================================================
+   PUT YOUR IMAGE HERE
+========================================================= */
 
 .card-image img{
 
@@ -390,8 +460,32 @@ body::after{
 
     filter:brightness(0.72);
 
-    transition:0.7s;
+    transition:
+    transform 0.7s ease,
+    filter 0.7s ease;
 }
+
+/* =========================================================
+   CINEMATIC OVERLAY
+========================================================= */
+
+.image-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1),
+        rgba(0,0,0,0.45)
+    );
+
+}
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
 
 .research-card:hover .card-image img{
 
@@ -400,94 +494,85 @@ body::after{
     filter:brightness(0.9);
 }
 
-/* OVERLAY */
-
-.image-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-    linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.08),
-    rgba(0,0,0,0.4)
-    );
-}
-
-/* ======================================================
+/* =========================================================
    CARD CONTENT
-====================================================== */
+========================================================= */
 
 .card-content{
-    padding:35px;
+    padding:40px;
 }
 
 .card-content h3{
 
     font-family:"Space Grotesk",sans-serif;
 
-    font-size:1.4rem;
+    font-size:1.7rem;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 }
 
 .card-content p{
-
-    color:#97a3b8;
+    color:var(--muted);
 }
 
-/* ======================================================
-   QUOTES
-====================================================== */
+/* =========================================================
+   QUOTE CARDS
+========================================================= */
 
 .quote-grid{
-
-    margin-top:60px;
 
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
+    repeat(auto-fit,minmax(280px,1fr));
 
     gap:30px;
+
+    margin-top:60px;
 }
 
 .quote-card{
 
-    padding:35px;
-
-    border-radius:22px;
-
     background:rgba(255,255,255,0.03);
 
-    border:1px solid rgba(121,220,255,0.14);
+    border:1px solid rgba(141,226,255,0.2);
+
+    border-radius:24px;
+
+    padding:35px;
 
     transition:0.4s;
+
+    position:relative;
+
+    overflow:hidden;
 }
 
 .quote-card:hover{
 
-    transform:translateY(-5px);
+    border-color:rgba(141,226,255,0.5);
 
-    border-color:rgba(121,220,255,0.35);
+    box-shadow:0 0 30px rgba(141,226,255,0.08);
+
+    transform:translateY(-4px);
 }
 
 .quote-card p{
 
-    color:#dce8ff;
+    color:#dce7f7;
+
+    font-size:1.05rem;
 }
 
-/* ======================================================
+/* =========================================================
    TIMELINE
-====================================================== */
+========================================================= */
 
 .timeline{
 
-    margin-top:70px;
-
     position:relative;
+
+    margin-top:70px;
 
     padding-left:40px;
 }
@@ -498,13 +583,13 @@ body::after{
 
     position:absolute;
 
-    left:10px;
+    left:12px;
     top:0;
 
     width:2px;
     height:100%;
 
-    background:rgba(121,220,255,0.25);
+    background:rgba(141,226,255,0.25);
 }
 
 .timeline-item{
@@ -520,50 +605,49 @@ body::after{
 
     position:absolute;
 
-    left:-37px;
-    top:6px;
+    left:-35px;
+    top:8px;
 
     width:18px;
     height:18px;
 
     border-radius:50%;
 
-    background:#79dcff;
+    background:var(--cyan);
 
-    box-shadow:
-    0 0 20px rgba(121,220,255,0.5);
+    box-shadow:0 0 20px rgba(141,226,255,0.5);
 }
 
 .timeline-item h4{
+
+    font-size:1.2rem;
 
     margin-bottom:8px;
 }
 
 .timeline-item p{
-
-    color:#97a3b8;
+    color:var(--muted);
 }
 
-/* ======================================================
+/* =========================================================
    ACCORDION
-====================================================== */
+========================================================= */
 
 .accordion{
-
-    margin-top:60px;
+    margin-top:50px;
 }
 
 .accordion-item{
 
     margin-bottom:20px;
 
-    overflow:hidden;
+    border-radius:20px;
 
-    border-radius:18px;
+    overflow:hidden;
 
     background:rgba(255,255,255,0.03);
 
-    border:1px solid rgba(255,255,255,0.06);
+    border:1px solid var(--border);
 }
 
 .accordion-header{
@@ -575,11 +659,12 @@ body::after{
     align-items:center;
 
     cursor:pointer;
+
+    transition:0.3s;
 }
 
-.accordion-header h4{
-
-    font-size:1rem;
+.accordion-header:hover{
+    background:rgba(255,255,255,0.03);
 }
 
 .accordion-content{
@@ -595,40 +680,49 @@ body::after{
 
     padding:0 24px 24px;
 
-    color:#97a3b8;
+    color:var(--muted);
 }
 
-/* ======================================================
+/* =========================================================
    REFLECTION
-====================================================== */
+========================================================= */
 
 .reflection{
 
     text-align:center;
+
+    padding:160px 30px;
+}
+
+.reflection h2{
+
+    font-family:"Space Grotesk",sans-serif;
+
+    font-size:3rem;
+
+    margin-bottom:30px;
 }
 
 .reflection p{
 
-    max-width:900px;
+    max-width:850px;
 
     margin:auto;
 
-    font-size:1.1rem;
+    color:var(--muted);
 
-    color:#97a3b8;
+    font-size:1.15rem;
 }
 
-/* ======================================================
+/* =========================================================
    FOOTER
-====================================================== */
+========================================================= */
 
 footer{
 
-    margin-top:120px;
-
     padding:60px 20px;
 
-    border-top:1px solid rgba(255,255,255,0.06);
+    border-top:1px solid var(--border);
 
     text-align:center;
 }
@@ -639,7 +733,6 @@ footer{
 
     display:flex;
     justify-content:center;
-
     gap:25px;
 
     flex-wrap:wrap;
@@ -647,9 +740,9 @@ footer{
 
 .footer-links a{
 
-    color:#97a3b8;
-
     text-decoration:none;
+
+    color:var(--muted);
 
     transition:0.3s;
 }
@@ -657,11 +750,13 @@ footer{
 .footer-links a:hover{
 
     color:white;
+
+    text-shadow:0 0 15px rgba(141,226,255,0.4);
 }
 
-/* ======================================================
-   REVEAL
-====================================================== */
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
 
 .reveal{
 
@@ -679,58 +774,60 @@ footer{
     transform:translateY(0);
 }
 
-/* ======================================================
+/* =========================================================
    RESPONSIVE
-====================================================== */
+========================================================= */
 
 @media(max-width:900px){
 
-    .nav-inner{
-
-        padding:20px 24px;
+    .nav-container{
+        padding:18px 20px;
     }
+
+    .hero h1{
+        font-size:3rem;
+    }
+
+    .section{
+        padding:100px 20px;
+    }
+
+}
+
+@media(max-width:700px){
 
     .nav-links{
         display:none;
     }
 
-    .section{
-
-        padding:90px 24px;
+    .section-title{
+        font-size:2rem;
     }
 
-    .hero h1{
-
-        font-size:3.2rem;
-    }
-
-    .hero p{
-
-        font-size:1rem;
-    }
-
-    .research-grid{
-
-        grid-template-columns:1fr;
+    .reflection h2{
+        font-size:2.2rem;
     }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- PARTICLES -->
+<!-- =========================================================
+   PARTICLES
+========================================================= -->
 
 <div class="particles" id="particles"></div>
 
-<!-- NAVBAR -->
+<!-- =========================================================
+   NAVBAR
+========================================================= -->
 
 <nav class="navbar">
 
-    <div class="nav-inner">
+    <div class="nav-container">
 
         <div class="logo">
             Neuro<span>Archive</span>
@@ -742,6 +839,7 @@ footer{
             <a href="#research">Research</a>
             <a href="#timeline">Timeline</a>
             <a href="#explore">Explore</a>
+            <a href="#reflection">Reflection</a>
 
         </div>
 
@@ -749,7 +847,9 @@ footer{
 
 </nav>
 
-<!-- HERO -->
+<!-- =========================================================
+   HERO
+========================================================= -->
 
 <section class="hero">
 
@@ -770,9 +870,15 @@ footer{
 
     </div>
 
+    <div class="scroll-indicator">
+        Scroll ↓
+    </div>
+
 </section>
 
-<!-- INTRO -->
+<!-- =========================================================
+   INTRODUCTION
+========================================================= -->
 
 <section class="section reveal" id="intro">
 
@@ -782,125 +888,157 @@ footer{
 
     <p class="section-text">
 
-        Procrastination is rarely simple laziness.
-        Modern neuroscience suggests avoidance
-        behaviors emerge from emotional regulation,
-        dopamine seeking patterns, cognitive overload,
-        and overstimulating digital environments.
+       Procrastination is rarely simple laziness. Modern neuroscience suggests
+        that avoidance behaviors emerge from emotional regulation conflicts,
+        dopamine-seeking patterns, cognitive overload, and the overwhelming
+        architecture of digital environments. The human brain evolved for
+        survival—not infinite notifications, constant comparison, and perpetual
+        stimulation. This research exploration examines why motivation collapses
+        even when goals remain deeply meaningful.
 
     </p>
 
 </section>
 
-<!-- RESEARCH -->
+<!-- =========================================================
+   RESEARCH SECTIONS
+========================================================= -->
 
-<section class="section reveal" id="research">
+<section class="section" id="research">
 
-    <h2 class="section-title">
-        Research Sections
-    </h2>
+    <!-- ================= CARD 1 ================= -->
 
-    <div class="research-grid">
+    <div class="research-card reveal">
 
-        <!-- CARD -->
+        <div class="card-image">
 
-        <div class="research-card">
+            <!-- PUT YOUR IMAGE HERE -->
 
-            <div class="card-image">
+            <img src="Gemini_Generated_Image_raerpqraerpqraer.png" alt="">
 
-                <!-- PUT IMAGE HERE -->
-                <img src="images/emotional.jpg" alt="">
-
-                <div class="image-overlay"></div>
-
-            </div>
-
-            <div class="card-content">
-
-                <h3>Emotional Avoidance</h3>
-
-                <p>
-                    Many forms of procrastination originate
-                    from emotional discomfort rather than
-                    lack of discipline.
-                </p>
-
-            </div>
+            <div class="image-overlay"></div>
 
         </div>
 
-        <!-- CARD -->
+        <div class="card-content">
 
-        <div class="research-card">
+            <h3>Emotional Avoidance</h3>
 
-            <div class="card-image">
-
-                <img src="images/dopamine.jpg" alt="">
-
-                <div class="image-overlay"></div>
-
-            </div>
-
-            <div class="card-content">
-
-                <h3>Dopamine & Instant Gratification</h3>
-
-                <p>
-                    Digital platforms create rapid dopamine
-                    feedback loops and reward seeking behavior.
-                </p>
-
-            </div>
+            <p>
+                Many forms of procrastination originate from emotional
+                discomfort rather than lack of discipline. Difficult tasks
+                activate fear, uncertainty, shame, or perceived inadequacy.
+                The brain often prioritizes short-term emotional relief over
+                long-term achievement.
+            </p>
 
         </div>
 
-        <!-- CARD -->
+    </div>
 
-        <div class="research-card">
+    <!-- ================= CARD 2 ================= -->
 
-            <div class="card-image">
+    <div class="research-card reveal">
 
-                <img src="images/perfectionism.jpg" alt="">
+        <div class="card-image">
 
-                <div class="image-overlay"></div>
+            <img src="dopamine.png" alt="">
 
-            </div>
-
-            <div class="card-content">
-
-                <h3>Digital Perfectionism</h3>
-
-                <p>
-                    Perfectionism often delays action because
-                    outcomes feel impossible to achieve perfectly.
-                </p>
-
-            </div>
+            <div class="image-overlay"></div>
 
         </div>
 
-        <!-- CARD -->
+        <div class="card-content">
 
-        <div class="research-card">
+            <h3>Dopamine & Instant Gratification</h3>
 
-            <div class="card-image">
+            <p>
+               Digital platforms are engineered to provide rapid dopamine
+                feedback loops. Social media, entertainment, and scrolling
+                create immediate neurological rewards, making slow-progress
+                tasks feel cognitively expensive and emotionally unrewarding.
+            </p>
 
-                <img src="images/attention.jpg" alt="">
+        </div>
 
-                <div class="image-overlay"></div>
+    </div>
 
-            </div>
+    <!-- ================= CARD 3 ================= -->
 
-            <div class="card-content">
+    <div class="research-card reveal">
 
-                <h3>Attention & Overstimulation</h3>
+        <div class="card-image">
 
-                <p>
-                    Continuous stimulation reduces tolerance
-                    for deep work and sustained focus.
-                </p>
+            <img src="realvssocial.png" alt="">
 
-            </div>
+            <div class="image-overlay"></div>
+
+        </div>
+
+        <div class="card-content">
+
+            <h3>Digital Perfectionism</h3>
+
+            <p> 
+                Constant exposure to polished productivity culture intensifies
+                perfectionistic thinking. Many individuals delay beginning work
+                because the imagined outcome must feel flawless before action
+                even starts.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ================= CARD 4 ================= -->
+
+    <div class="research-card reveal">
+
+        <div class="card-image">
+
+            <img src="overbrain.png" alt="">
+
+            <div class="image-overlay"></div>
+
+        </div>
+
+        <div class="card-content">
+
+            <h3>Attention Span & Overstimulation</h3>
+
+            <p>
+                Continuous multitasking fragments cognitive attention.
+                The nervous system becomes conditioned to rapid novelty,
+                reducing tolerance for deep focus, sustained reading,
+                and mentally demanding tasks.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ================= CARD 5 ================= -->
+
+    <div class="research-card reveal">
+
+        <div class="card-image">
+
+            <img src="deepvslazy.png" alt="">
+
+            <div class="image-overlay"></div>
+
+        </div>
+
+        <div class="card-content">
+
+            <h3>Psychological Effects</h3>
+
+            <p>
+                 Chronic procrastination gradually transforms into guilt,
+                anxiety, lowered self-worth, and identity conflict.
+                The unfinished task remains mentally active, increasing
+                background stress even during periods of rest.
+            </p>
 
         </div>
 
@@ -908,7 +1046,9 @@ footer{
 
 </section>
 
-<!-- QUOTES -->
+<!-- =========================================================
+   QUOTE CARDS
+========================================================= -->
 
 <section class="section reveal">
 
@@ -950,7 +1090,9 @@ footer{
 
 </section>
 
-<!-- TIMELINE -->
+<!-- =========================================================
+   TIMELINE
+========================================================= -->
 
 <section class="section reveal" id="timeline">
 
@@ -995,7 +1137,17 @@ footer{
             <h4>Reduced Motivation</h4>
 
             <p>
-                Stress reduces cognitive clarity and energy.
+                Stress reduces cognitive energy and clarity.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <h4>More Avoidance</h4>
+
+            <p>
+                The cycle reinforces itself neurologically.
             </p>
 
         </div>
@@ -1004,102 +1156,117 @@ footer{
 
 </section>
 
-<!-- ACCORDION -->
+<!-- =========================================================
+   ACCORDION
+========================================================= -->
 
 <section class="section reveal" id="explore">
 
-    <h2 class="section-title">
-        Interactive Exploration
-    </h2>
+    <h2 class="section-title">Interactive Exploration</h2>
 
     <div class="accordion">
 
         <div class="accordion-item">
-
             <div class="accordion-header">
-
                 <h4>Dopamine</h4>
-
                 <span>+</span>
-
             </div>
 
             <div class="accordion-content">
-
                 <p>
-                    Dopamine influences reward-seeking
-                    behavior and digital stimulation loops.
+                    Dopamine influences anticipation and reward-seeking
+                    behavior. Modern digital systems continuously stimulate
+                    these pathways with rapid novelty and unpredictable rewards.
                 </p>
-
             </div>
-
         </div>
 
         <div class="accordion-item">
-
             <div class="accordion-header">
-
                 <h4>Attention</h4>
-
                 <span>+</span>
-
             </div>
 
             <div class="accordion-content">
-
                 <p>
-                    Modern media environments fragment
-                    sustained attention and focus.
+                    Sustained attention is increasingly challenged by
+                    fragmented media consumption and multitasking habits.
                 </p>
-
             </div>
-
         </div>
 
         <div class="accordion-item">
-
             <div class="accordion-header">
-
                 <h4>Technology</h4>
-
                 <span>+</span>
-
             </div>
 
             <div class="accordion-content">
-
                 <p>
-                    Digital ecosystems compete aggressively
-                    for cognitive engagement.
+                    Digital ecosystems compete aggressively for cognitive
+                    engagement, often prioritizing stimulation over reflection.
                 </p>
+            </div>
+        </div>
 
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <h4>Perfectionism</h4>
+                <span>+</span>
             </div>
 
+            <div class="accordion-content">
+                <p>
+                    Unrealistic expectations can create fear-based paralysis,
+                    delaying action until conditions feel “ideal.”
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <h4>Human Behavior</h4>
+                <span>+</span>
+            </div>
+
+            <div class="accordion-content">
+                <p>
+                    Human behavior is shaped not only by logic, but by emotion,
+                    environment, memory, stress, and social influence.
+                </p>
+            </div>
         </div>
 
     </div>
 
 </section>
 
-<!-- REFLECTION -->
 
-<section class="section reflection reveal">
+<!-- =========================================================
+   REFLECTION
+========================================================= -->
 
-    <h2 class="section-title">
+<section class="reflection reveal" id="reflection">
+
+    <h2>
         Reflection
     </h2>
 
     <p>
 
-        Perhaps procrastination is not simply a
-        productivity issue, but a signal from
-        the nervous system itself in an overstimulated world.
+    Perhaps procrastination is not simply a productivity issue,
+        but a signal from the nervous system itself. In a world saturated
+        with stimulation, comparison, and endless cognitive demands,
+        the mind increasingly seeks escape-not because it lacks ambition,
+        but because it struggles to preserve psychological balance.
 
     </p>
 
 </section>
 
-<!-- FOOTER -->
+<!-- =========================================================
+   FOOTER
+========================================================= -->
 
 <footer>
 
@@ -1109,34 +1276,34 @@ footer{
 
     <div class="footer-links">
 
-        <a href="#">GitHub</a>
-        <a href="#">Portfolio</a>
-        <a href="#">Email</a>
+       
+        <a href="https://asnanasrin.netlify.app/">Portfolio</a>
+        <a href="asnaasnahh28@gmail.com">Email</a>
+        <a href="https://asnanasrin.netlify.app/">Research Notes</a>
 
     </div>
 
 </footer>
 
-<!-- JS -->
+<!-- =========================================================
+   JAVASCRIPT
+========================================================= -->
 
 <script>
 
-/* ======================================================
+/* =========================================================
    PARTICLES
-====================================================== */
+========================================================= */
 
-const particles =
-document.getElementById("particles");
+const particles = document.getElementById("particles");
 
 for(let i = 0; i < 80; i++){
 
-    const particle =
-    document.createElement("div");
+    const particle = document.createElement("div");
 
     particle.classList.add("particle");
 
-    particle.style.left =
-    Math.random() * 100 + "vw";
+    particle.style.left = Math.random() * 100 + "vw";
 
     particle.style.animationDuration =
     (8 + Math.random() * 12) + "s";
@@ -1148,16 +1315,15 @@ for(let i = 0; i < 80; i++){
 
 }
 
-/* ======================================================
+/* =========================================================
    SCROLL REVEAL
-====================================================== */
+========================================================= */
 
-const reveals =
-document.querySelectorAll(".reveal");
+const reveals = document.querySelectorAll(".reveal");
 
 function revealOnScroll(){
 
-    const trigger =
+    const triggerBottom =
     window.innerHeight * 0.85;
 
     reveals.forEach((item)=>{
@@ -1165,7 +1331,7 @@ function revealOnScroll(){
         const top =
         item.getBoundingClientRect().top;
 
-        if(top < trigger){
+        if(top < triggerBottom){
 
             item.classList.add("active");
 
@@ -1179,9 +1345,9 @@ window.addEventListener("scroll", revealOnScroll);
 
 revealOnScroll();
 
-/* ======================================================
+/* =========================================================
    ACCORDION
-====================================================== */
+========================================================= */
 
 const accordionHeaders =
 document.querySelectorAll(".accordion-header");
